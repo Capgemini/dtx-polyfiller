@@ -34,11 +34,11 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
         
       # run tests!
-      - run: yarn build
-      - run: rm .gitignore
       - run: git config --global user.email "$GITHUB_EMAIL"
       - run: git config --global user.name "$GITHUB_NAME"
       - run: git checkout -b gh-pages
+      - run: yarn build
+      - run: rm .gitignore
       - run: git commit -am "Updated GH-Pages"
       - run: git push -f --set-upstream origin gh-pages
 
