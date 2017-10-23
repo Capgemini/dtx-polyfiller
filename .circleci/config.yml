@@ -39,6 +39,7 @@ jobs:
       - run: git checkout -b gh-pages
       - run: yarn build
       - run: rm .gitignore
+      - run: mv prod.gitignore .gitignore
       - run: git add .
       - run: git commit -m "Updated GH-Pages"
       - run: git push -f --set-upstream origin gh-pages

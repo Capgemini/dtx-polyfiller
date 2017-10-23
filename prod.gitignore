@@ -1,0 +1,11 @@
+# Dependencies
+node_modules
+
+# Manifest
+DTX/manifest.json
+
+# Env
+.env
+
+# Key
+*.pem
