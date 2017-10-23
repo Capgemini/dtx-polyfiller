@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "main": "build.js",
   "scripts": {
-    "build": "node populateHosts && crx pack DTX"
+    "build": "node populateHosts && crx pack DTX -o dtx-polyfiller.crx"
   },
   "repository": "git@github.com:Capgemini/dtx-polyfiller.git",
   "author": "Dan Cotton <dan.cotton@capgemini.com>",
