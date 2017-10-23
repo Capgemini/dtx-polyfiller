@@ -1,0 +1,14 @@
+# Dependencies
+node_modules
+
+# Manifest
+DTX/manifest.json
+
+# Env
+.env
+
+# Chrome Extension
+*.crx
+
+# Key
+*.pem

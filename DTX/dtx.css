@@ -1,0 +1,9 @@
+#dgHolidaySubmitClaims_main, #dgHolidaySubmitClaims_main td, #dgHolidaySubmitClaims_div {
+  height: auto!important;
+}
+#jsddm_summary li ul {
+  z-index: 110;
+}
+#jsddm_summary li ul li {
+  display: block!important;
+}
