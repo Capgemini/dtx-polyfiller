@@ -22,3 +22,15 @@ whilst also implementing minor other CSS/JS patches for legacy tools.
 3) Populate .env based on example.env template
 
 4) Run yarn build
+
+
+## Issues
+
+If you find a bug, raise it as a GitHub issue here:
+
+https://github.com/Capgemini/dtx-polyfiller
+
+
+For other issues, contact Dan Cotton:
+
+https://github.com/daniel-cotton
