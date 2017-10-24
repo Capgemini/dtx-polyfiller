@@ -28,9 +28,9 @@ whilst also implementing minor other CSS/JS patches for legacy tools.
 
 If you find a bug, raise it as a GitHub issue here:
 
-https://github.com/Capgemini/dtx-polyfiller
+[https://github.com/Capgemini/dtx-polyfiller](https://github.com/Capgemini/dtx-polyfiller)
 
 
 For other issues, contact Dan Cotton:
 
-https://github.com/daniel-cotton
+[https://github.com/daniel-cotton](https://github.com/daniel-cotton)
