@@ -12,3 +12,6 @@ DTX/manifest.json
 
 # Key
 *.pem
+
+# Update Manifest
+update.xml
