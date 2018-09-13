@@ -6,7 +6,7 @@ whilst also implementing minor other CSS/JS patches for legacy tools.
 ## Installation
 
 
-1) [Right-Click Here and "Save Link As"](/dtx-polyfiller/dtx-polyfiller.crx)
+1) [Right-Click Here and "Save Link As"](https://capgemini.github.io/dtx-polyfiller/dtx-polyfiller.crx)
 
 2) Visit the following URL in Chrome: chrome://extensions
 
