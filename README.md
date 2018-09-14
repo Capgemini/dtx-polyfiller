@@ -3,6 +3,8 @@
 This Chrome extension rewrites a few input events from "onpropertychange" to "onchange" - 
 whilst also implementing minor other CSS/JS patches for legacy tools.
 
+Also overrides a number of functions in the claims submission process to remove IE specific XML/XPath usage.
+
 ## Installation
 
 
