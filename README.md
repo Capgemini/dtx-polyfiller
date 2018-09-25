@@ -8,9 +8,19 @@ whilst also implementing minor other CSS/JS patches for legacy tools.
 
 1) [Right-Click Here and "Save Link As"](https://capgemini.github.io/dtx-polyfiller/dtx-polyfiller.crx)
 
-2) Visit the following URL in Chrome: chrome://extensions
+2) Go to https://robwu.nl/crxviewer/
 
-3) Drag/Drop saved .crx file onto the page
+3) Click browse button and then locate and select the 'dtx-polyfiller.crx' file saved in step 1.
+
+4) Click the download button in the top-right of the screen
+
+5) Locate this file on your computer (will be named 'dtx-polyfiller.zip') and double click on it to unzip the file
+
+6) Visit the following URL in Chrome: chrome://extensions
+
+7) Toggle developer mode on in the top-right then click 'load unpacked'
+
+8) Locate and select the folder created when you unzipped the 'dtx-polyfiller.zip' file
 
 ## Development
 
