@@ -8,7 +8,6 @@ let manifest = JSON.parse(fs.readFileSync("./manifest.json"));
 let pack = JSON.parse(fs.readFileSync("./package.json"));
 
 manifest.version = pack.version;
-manifest.update_url = process.env.EXTENSION_UPDATE_URL;
 manifest.permissions = HOSTS;
 manifest.content_scripts = manifest.content_scripts.map(item => Object.assign({}, item, {
   matches: HOSTS
