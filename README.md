@@ -1,10 +1,25 @@
 # DTX-Polyfiller
 
-This Chrome extension rewrites a few input events from "onpropertychange" to "onchange" - 
+This Chrome (And firefox!) extension rewrites a few input events from "onpropertychange" to "onchange" - 
 whilst also implementing minor other CSS/JS patches for legacy tools.
 
-## Installation
+## Installation (CHROME - New Style)
 
+We're on the chrome web store! Just install here:
+[https://chrome.google.com/webstore/detail/ndjmplgjbibmifkajogmngpekcnammpb](https://chrome.google.com/webstore/detail/ndjmplgjbibmifkajogmngpekcnammpb)
+
+
+## Installation (Firefox!)
+
+1) [Right-Click Here and "Save Link As"](https://capgemini.github.io/dtx-polyfiller/dtx-polyfiller.xpi)
+
+2) In Firefox, open the Firefox menu Firefox browser menu button and click Add-ons.
+
+3) From the settings cog, open Install Add-on From File.
+
+4) Select the XPI file you just downloaded and click "Add"
+
+## Installation (CHROME - old style)
 
 1) [Right-Click Here and "Save Link As"](https://capgemini.github.io/dtx-polyfiller/dtx-polyfiller.crx)
 
