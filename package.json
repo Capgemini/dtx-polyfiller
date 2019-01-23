@@ -1,6 +1,6 @@
 {
   "name": "dtx-polyfiller",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "build.js",
   "scripts": {
     "build": "node populateHosts && node generateUpdateFile && crx pack DTX -o dtx-polyfiller.crx"
