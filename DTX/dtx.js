@@ -10,7 +10,9 @@ document.querySelectorAll('input')
     try {
       input.addEventListener('change', propertyChange);
     } catch (e) {
+      // Suppress
     }
+
     input.setAttribute('onchange', propertyChange);      
   });
 
