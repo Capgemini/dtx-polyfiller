@@ -1,6 +1,6 @@
 {
   "name": "dtx-polyfiller",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "main": "build.js",
   "scripts": {
     "build": "node populateHosts && node generateUpdateFile && crx pack DTX -o dtx-polyfiller.crx && cd DTX && rm key.pem && web-ext sign --api-key=$AMO_JWT_ISSUER --api-secret=$AMO_JWT_SECRET --id=$MOZ_EXT_ID && cd .. && node dropUpdate && mv ./DTX/web-ext-artifacts/*.xpi dtx-polyfiller.xpi && rm DTX/.web-extension-id && rm -d DTX/web-ext-artifacts/"

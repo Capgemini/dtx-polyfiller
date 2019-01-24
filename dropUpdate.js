@@ -1,7 +1,6 @@
 const fs = require("fs");
 
-let manifest = JSON.parse(fs.readFileSync("./manifest.json"));
-let pack = JSON.parse(fs.readFileSync("./package.json"));
+let manifest = JSON.parse(fs.readFileSync("./DTX/manifest.json"));
 
 delete manifest.update_url;
 
