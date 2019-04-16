@@ -7,8 +7,10 @@ DTX/manifest.json
 # Env
 .env
 
-# Chrome Extension
+# Extensions
 *.crx
+*.xpi
+.web-extension-id
 
 # Key
 *.pem
