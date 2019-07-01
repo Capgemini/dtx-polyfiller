@@ -7,13 +7,5 @@ DTX/manifest.json
 # Env
 .env
 
-# Extensions
-*.crx
-*.xpi
-.web-extension-id
-
 # Key
 *.pem
-
-# Update Manifest
-update.xml
