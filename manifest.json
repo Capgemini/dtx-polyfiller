@@ -3,7 +3,14 @@
   "description": "Make DTX usable...",
   "version": "1.1",
   "manifest_version": 2,
-  "permissions": [],
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking"
+  ],
+  "background": {
+    "scripts": ["silhouette/silhouette.js"],
+    "persistent": true
+  },
   "content_scripts": [
     {
       "matches": [],
