@@ -1,9 +1,17 @@
 #dgHolidaySubmitClaims_main, #dgHolidaySubmitClaims_main td, #dgHolidaySubmitClaims_div {
   height: auto!important;
 }
-#jsddm_summary li ul {
-  z-index: 110;
-}
-#jsddm_summary li ul li {
-  display: block!important;
-}
+
+
+/* Fix for popout menus showing behind table header row */
+#jsddm_summary li ul, #jsddm_item li ul { z-index: 1000; }
+
+/* Fix popout menu options having huge padding */
+#jsddm_summary li ul li, #jsddm_item li ul li { display: list-item !important; }
+
+/* Fix popout menu options flickering padding on hover */
+#jsddm_summary li ul li a, #jsddm_item li ul li a { padding: 3px 4px !important; }
+
+/* Improve popout menu readability/clickability */
+#jsddm_summary li ul li a, #jsddm_item li ul li a { font-size: 11px !important; }
+#jsddm_summary li ul li, #jsddm_item li ul li { padding: none !important; }
