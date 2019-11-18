@@ -1,10 +1,5 @@
-let setting_checkboxModeDefault = false; // If checkbox mode should be on by default
-
-let setting_injectShortcutKeys = true; // Should hotkeys like CTRL+S be added?
-
-let setting_showBankHolidays = true; // Enables showing of bank holidays
-let setting_holidayRegion = "england-and-wales"; // Options are: england-and-wales, northern-ireland, scotland
 let setting_apiURL = "https://www.gov.uk/bank-holidays.json"; // URL to fetch up to date bank holidays
+
 
 
 // Forcefully shows invisible buttons
@@ -34,7 +29,7 @@ function fixInputEventHandlers() {
 
 
 // Adds toggle-able checkbox selection of work days to auto-fill with 7.5 hours
-function loadCheckboxMode() {
+function loadSelectMode(defaultMode) {
 	let inputs = [...document.querySelectorAll("#calDates_tabCalendar > tbody input")];
 
 	let checkboxes = inputs.map(input => {
@@ -50,7 +45,6 @@ function loadCheckboxMode() {
 		}
 		
 		// Highlight bank holiday checkboxes
-		console.log(input);
 		if (input.classList.contains("bankHolidayDay")) {
 			checkbox.classList.add("bankHolidayDay");
 		}
@@ -72,15 +66,20 @@ function loadCheckboxMode() {
 	let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
 	checkbox.id = checkboxName;
-    checkbox.value = setting_checkboxModeDefault;
+    checkbox.checked = defaultMode;
+	
+	function changeSelectMode(enabled) {
+		// Show & hide checkboxes or text input fields
+		checkboxes.forEach(combo => combo.style.display = enabled ? "block" : "none");
+		inputs.forEach(combo => combo.style.display = enabled ? "none" : "block");
+	}
 	
 	checkbox.addEventListener('change', (event) => {
 		let checkboxMode = event.target.checked;
 		
-		// Show & hide checkboxes or text input fields
-		checkboxes.forEach(combo => combo.style.display = checkboxMode ? "block" : "none");
-		inputs.forEach(combo => combo.style.display = checkboxMode ? "none" : "block");
+		changeSelectMode(event.target.checked);
 	});
+	if (defaultMode) changeSelectMode(true);
 	
 	let label = document.createElement('label');
     label.htmlFor = checkboxName; /* Link clicks to checkbox element */
@@ -178,31 +177,39 @@ function fetchBankHolidaysJSON(callback) {
 
 
 
-fixMissingButtons();
-fixInputEventHandlers();
+chrome.storage.sync.get({
+	shortcutKeys: true,
+	selectMode: true,
+	showBankHolidays: true,
+	holidayRegion: 'england-and-wales',
+}, function(items) {
 
-if (setting_injectShortcutKeys) injectShortcutKeys();
+	fixMissingButtons();
+	fixInputEventHandlers();
+
+	if (items.shortcutKeys) injectShortcutKeys();
 
 
-// Check calender is on page before injecting calender features
-if (!!document.getElementById("calDates_tabCalendar")) {
-	
-	// Inject bank holiday features
-	fetchBankHolidaysJSON(function(holidaysJSON) {
-		// Get bank holidays table based off user's settings
-		let myBankHolidays = holidaysJSON[setting_holidayRegion];
-		try {
-			if (!myBankHolidays) {throw "Invalid region!"}
-			myBankHolidays = holidaysJSON[setting_holidayRegion].events;
-		} catch(e) {
-			console.warn("ERROR:\n" + e.message);
-			return;
-		}
-
-		if (setting_showBankHolidays) handleShowBankHolidays(myBankHolidays);
+	// Check calender is on page before injecting calender features
+	if (!!document.getElementById("calDates_tabCalendar")) {
 		
-		loadCheckboxMode(); // Inject checkbox mode
-	});
-}
+		// Inject bank holiday features
+		fetchBankHolidaysJSON(function(holidaysJSON) {
+			// Get bank holidays table based off user's settings
+			let myBankHolidays = holidaysJSON[items.holidayRegion];
+			try {
+				if (!myBankHolidays) {throw "Invalid region!"}
+				myBankHolidays = holidaysJSON[items.holidayRegion].events;
+			} catch(e) {
+				console.warn("ERROR:\n" + e.message);
+				return;
+			}
 
-console.log("Loading finished");
+			if (items.showBankHolidays) handleShowBankHolidays(myBankHolidays);
+			
+			loadSelectMode(items.selectMode); // Inject checkbox mode
+		});
+	}
+	
+	console.log("Loading finished");
+});
