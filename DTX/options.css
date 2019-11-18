@@ -1,0 +1,16 @@
+* {
+	user-select: none; /* Disable text highlighting */
+}
+
+body {
+	width: 200px;
+	height: auto;
+	
+	padding-bottom: 8px;
+}
+#status {
+	display: inline-block;
+	margin-left: 5px;
+	color: #0c0;
+	font-weight: bold;
+}
