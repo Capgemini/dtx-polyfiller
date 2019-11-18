@@ -15,3 +15,37 @@
 /* Improve popout menu readability/clickability */
 #jsddm_summary li ul li a, #jsddm_item li ul li a { font-size: 11px !important; }
 #jsddm_summary li ul li, #jsddm_item li ul li { padding: none !important; }
+
+
+
+/* Custom class for my bank holiday'd fields */
+input[type=text].bankHolidayDay::placeholder, input[type=checkbox].bankHolidayDay:after {
+	color: #666;
+	font-weight: bold;
+	text-align: center;
+}
+
+/* Style text inputs */
+input[type=text].bankHolidayDay {
+	background: #ff6;
+	color: #f00;
+	font-weight: bold;
+}
+
+/* Style checkboxes */
+input[type=checkbox].bankHolidayDay {
+	position: relative;
+	filter: brightness(0.85) sepia(1) saturate(200%); /* Make checkbox yellow maintaining browser checkbox style */
+}
+input[type=checkbox].bankHolidayDay:after {
+    content: "Bank H";
+	font-size: 10px; /* Shrink font slightly */
+	display: inline-block;
+	width: 50px;
+    height: 20px;
+	
+	/* Center under checkbox */
+	position: absolute;
+	left: -50%;
+	top: 100%;
+}
