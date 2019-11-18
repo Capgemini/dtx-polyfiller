@@ -49,3 +49,21 @@ input[type=checkbox].bankHolidayDay:after {
 	left: -50%;
 	top: 100%;
 }
+
+
+#toggleModeContainer {
+	height: 100%;
+	
+	font-weight: bold;
+	user-select: none;
+	
+	/* Center items vertically */
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+#toggleModeContainer input {
+	width: 20px;
+	height: 20px;
+}
