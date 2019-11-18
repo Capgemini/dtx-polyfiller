@@ -8,9 +8,28 @@ body {
 	
 	padding-bottom: 8px;
 }
+h2 {
+	margin: 0;
+}
+
+
+input[type="checkbox"] {
+	width: 15px;
+	height: 15px;
+}
+label {
+	font-size: 14px;
+}
+label.header {
+	font-weight: bold;
+}
+
 #status {
 	display: inline-block;
 	margin-left: 5px;
 	color: #0c0;
 	font-weight: bold;
+}
+#save {
+	padding: 3px 10px;
 }

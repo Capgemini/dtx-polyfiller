@@ -5,7 +5,7 @@
 		<link rel="stylesheet" href="options.css">
 	</head>
 	<body>
-		<h2>Settings</h2>
+		<h2>DTX Settings:</h2>
 		<label>
 			<input type="checkbox" id="shortcutKeys"/>
 			Shortcut keys
@@ -17,34 +17,31 @@
 			Select mode
 		</label>
 		</br>
+		</br>
 		
-		<label>
+		<label class="header">
 			<input type="checkbox" id="showBankHolidays"/>
 			Show bank holidays
 		</label>
-		</br>
-		
-		</br>
 		
 		<div id="bankHolidaySettingsContainer">
-			Bank holidays region:</br>
+			<label>Bank holidays region:</label>
 			<select id="holidayRegion"></select>
-			</br>
-			</br>
 		</div>
+		</br>
+		</br>
 		
-		<label>
+		<label class="header">
 			<input type="checkbox" id="autoLogin"/>
 			Auto-login
 		</label>
-		</br>
 		<div id="autoLoginSettingsContainer">
-			</br>
 			<label>
 				Employee number:
 				<input type="text" id="employeeNumber" placeholder="employee number..."/>
 			</label>
 		</div>
+		</br>
 		</br>
 
 		<button id="save">Save</button>
