@@ -66,24 +66,32 @@ function loadCheckboxMode() {
 	
 	
 	// Add toggle button button to menubar
+	let checkboxName = "toggleMode";
 	let buttonRow = document.querySelector("#SubMenuUC1_SubMenu_div1 > table > tbody > tr");
-	let button = document.createElement("td");
-	button.innerHTML = "<button>Checkbox Mode</button>";
-	buttonRow.appendChild(button);
 	
-	let checkboxMode = setting_checkboxModeDefault;
-	button.addEventListener("click", event => {
-		// Prevent form submit
-		event.preventDefault();
-		event.stopPropagation();
-		
-		checkboxMode = !checkboxMode; // Toggle checkbox mode
-		button.querySelector("button").innerText = checkboxMode ? "Input mode" : "Checkbox Mode"; // Update button text
+	let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+	checkbox.id = checkboxName;
+    checkbox.value = setting_checkboxModeDefault;
+	
+	checkbox.addEventListener('change', (event) => {
+		let checkboxMode = event.target.checked;
 		
 		// Show & hide checkboxes or text input fields
 		checkboxes.forEach(combo => combo.style.display = checkboxMode ? "block" : "none");
 		inputs.forEach(combo => combo.style.display = checkboxMode ? "none" : "block");
 	});
+	
+	let label = document.createElement('label');
+    label.htmlFor = checkboxName; /* Link clicks to checkbox element */
+    label.innerText = "Select mode";
+	
+	let container = document.createElement("div");
+	container.id = "toggleModeContainer";
+	container.appendChild(checkbox);
+	container.appendChild(label);
+	
+	buttonRow.appendChild(container);
 }
 
 // Adds hotkeys:
