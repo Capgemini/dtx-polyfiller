@@ -15,12 +15,16 @@ function save_options() {
 	var selectMode = document.getElementById('selectMode').checked;
 	var showBankHolidays = document.getElementById('showBankHolidays').checked;
 	var holidayRegion = document.getElementById('holidayRegion').value;
+	var autoLogin = document.getElementById('autoLogin').checked;
+	var employeeNumber = document.getElementById('employeeNumber').value;
 	
 	chrome.storage.sync.set({
 		shortcutKeys: shortcutKeys,
 		selectMode: selectMode,
 		showBankHolidays: showBankHolidays,
 		holidayRegion: holidayRegion,
+		autoLogin: autoLogin,
+		employeeNumber: employeeNumber,
 	}, function() {
 		// Update status to let user know options were saved.
 		var status = document.getElementById('status');
@@ -31,6 +35,15 @@ function save_options() {
 	});
 }
 
+// Toggles visibility of bank holiday sub-settings
+function toggleBankHolidayContainer(shouldShow) {
+	document.getElementById('bankHolidaySettingsContainer').style.display = shouldShow ? "block" : "none";
+}
+// Toggles visibility of auto login sub-settings
+function toggleAutoLoginContainer(shouldShow) {
+	document.getElementById('autoLoginSettingsContainer').style.display = shouldShow ? "block" : "none";
+}
+
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 function restore_options() {
@@ -39,11 +52,19 @@ function restore_options() {
 		selectMode: true,
 		showBankHolidays: true,
 		holidayRegion: 'england-and-wales',
+		autoLogin: false,
+		employeeNumber: "",
 	}, function(items) {
 		document.getElementById('shortcutKeys').checked = items.shortcutKeys;
 		document.getElementById('selectMode').checked = items.selectMode;
+		
 		document.getElementById('showBankHolidays').checked = items.showBankHolidays;
 		document.getElementById('holidayRegion').value = items.holidayRegion;
+		toggleBankHolidayContainer(items.showBankHolidays);
+		
+		document.getElementById('autoLogin').checked = items.autoLogin;
+		document.getElementById('employeeNumber').value = items.employeeNumber;
+		toggleAutoLoginContainer(items.autoLogin);
 	});
 }
 
@@ -72,3 +93,10 @@ function fill_region_options() {
 
 document.addEventListener('DOMContentLoaded', fill_region_options);
 document.getElementById('save').addEventListener('click', save_options);
+
+document.getElementById("showBankHolidays").addEventListener("change", function(event) {
+	toggleBankHolidayContainer(event.target.checked);
+});
+document.getElementById("autoLogin").addEventListener("change", function(event) {
+	toggleAutoLoginContainer(event.target.checked);
+});

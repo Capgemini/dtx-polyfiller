@@ -177,13 +177,28 @@ function fetchBankHolidaysJSON(callback) {
 
 
 
+// Auto-fills and logins in if form is avaliable on current page
+function autoLogin(employeeNumber) {
+    let form = document.getElementById("frmLogin");
+    if (form) {
+        document.body.style.visibility = "hidden"; // Hide login page
+        form.elements.namedItem("txtEmployeeNumber").value = employeeNumber;
+        form.submit();
+    }
+}
+
+
 chrome.storage.sync.get({
 	shortcutKeys: true,
 	selectMode: true,
 	showBankHolidays: true,
 	holidayRegion: 'england-and-wales',
+	autoLogin: false,
+	employeeNumber: "",
 }, function(items) {
 
+    if (items.autoLogin) autoLogin(items.employeeNumber); // Run auto-login
+	
 	fixMissingButtons();
 	fixInputEventHandlers();
 
