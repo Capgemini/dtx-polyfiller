@@ -41,7 +41,7 @@ function loadSelectMode(defaultMode) {
 		
 		// Darken weekend checkboxes
 		if (input.style["background-color"] === "rgb(225, 225, 225)") {
-			checkbox.style.opacity = 0.6;
+			checkbox.style.filter = "brightness(0.85)";
 		}
 		
 		// Highlight bank holiday checkboxes
@@ -93,15 +93,34 @@ function loadSelectMode(defaultMode) {
 	buttonRow.appendChild(container);
 }
 
+
+// Injects a content script listener into the page with access to page functions
+function injectSaveListener() {	
+	var script = document.createElement('script');
+	script.textContent = `
+		document.addEventListener('callSaveFuncs', function() {
+			if (typeof saveFromIcon === "function") saveFromIcon(); else if (typeof myPage.Save === "function") myPage.Save(); // Call DTX save button click function
+		});
+	`;
+	document.head.appendChild(script);
+	script.remove();
+}
+
 // Adds hotkeys:
 //  CTRL+S to save changes
 //  Escape to go home
 function injectShortcutKeys() {
+	injectSaveListener();
+	
 	document.addEventListener('keydown', function(event) {
 		const keySPressed = (event.keyCode === 83 || event.keyCode === 115); // Check if code is for 's' or 'S'
 		if (event.ctrlKey && keySPressed) {
 			event.preventDefault(); // Prevent browser's save dialog showing
-			if (saveFromIcon) saveFromIcon(); else myPage.Save(); // Call DTX save button click function
+			
+			var evt = document.createEvent('Event');
+			evt.initEvent('callSaveFuncs', true, false);
+			document.dispatchEvent(evt); // Fire the event
+			
 		} else if (event.key === "Escape") {
 			event.preventDefault(); // Prevent escape key stopping document reloading
 			const homeURL = window.location.origin + "/DTX.NET/Summary.aspx";
