@@ -49,46 +49,61 @@ function loadSelectMode(defaultMode) {
 			checkbox.classList.add("bankHolidayDay");
 		}
 		
-		// Check checkbox if day has hours assigned
-		checkbox.checked = Number(input.value) === 7.5;
 		
-		
-		checkbox.onchange = event => input.value = event.target.checked ? "7.5" : "";
+		checkbox.onchange = function(event) {
+			input.value = event.target.checked ? "7.5" : "";
+			event.target.classList.remove("semiChecked");
+		}
 		input.insertAdjacentElement('afterend', checkbox);
 		return checkbox;
 	});
 	
 	
 	// Add toggle button button to menubar
-	let checkboxName = "toggleMode";
+	let selectModeCheckboxName = "toggleMode";
 	let buttonRow = document.querySelector("#SubMenuUC1_SubMenu_div1 > table > tbody > tr");
 	
-	let checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-	checkbox.id = checkboxName;
-    checkbox.checked = defaultMode;
+	let selectModeCheckbox = document.createElement("input");
+    selectModeCheckbox.type = "checkbox";
+	selectModeCheckbox.id = selectModeCheckboxName;
+    selectModeCheckbox.checked = defaultMode;
 	
 	function changeSelectMode(enabled) {
 		// Show & hide checkboxes or text input fields
 		checkboxes.forEach(combo => combo.style.display = enabled ? "block" : "none");
 		inputs.forEach(combo => combo.style.display = enabled ? "none" : "block");
+		
+		if (enabled) {
+			inputs.forEach(function(input, index) {
+				let checkbox = input.nextElementSibling;
+				
+				// Check checkbox if day has hours assigned
+				let selectedHrs = Number(input.value);
+				checkbox.checked = selectedHrs === 7.5;
+				
+				// Highlight checkboxes that have work hours but not a full day
+				if (selectedHrs !== 7.5 && selectedHrs !== 0) {
+					checkbox.classList.add("semiChecked");
+				} else {
+					checkbox.classList.remove("semiChecked");
+				}
+			});
+		}
 	}
 	
-	checkbox.addEventListener('change', (event) => {
-		let checkboxMode = event.target.checked;
-		
+	selectModeCheckbox.addEventListener('change', (event) => {
 		changeSelectMode(event.target.checked);
 	});
 	if (defaultMode) changeSelectMode(true);
 	
-	let label = document.createElement('label');
-    label.htmlFor = checkboxName; /* Link clicks to checkbox element */
-    label.innerText = "Select mode";
+	let selectModeLabel = document.createElement('label');
+    selectModeLabel.htmlFor = selectModeCheckboxName; /* Link clicks to checkbox element */
+    selectModeLabel.innerText = "Select mode";
 	
 	let container = document.createElement("div");
 	container.id = "toggleModeContainer";
-	container.appendChild(checkbox);
-	container.appendChild(label);
+	container.appendChild(selectModeCheckbox);
+	container.appendChild(selectModeLabel);
 	
 	buttonRow.appendChild(container);
 }
