@@ -50,12 +50,33 @@ function loadSelectMode(defaultMode) {
 			checkbox.classList.add("bankHolidayDay");
 		}
 		
-		
-		checkbox.onchange = function(event) {
-			input.value = event.target.checked ? "7.5" : "";
-			event.target.classList.remove("semiChecked");
-		}
+		// Add checkbox to calender
 		input.insertAdjacentElement('afterend', checkbox);
+		
+		// Handler for when checkbox is changed
+		function checkboxClickHandler(checkbox) {
+			input.value = checkbox.checked ? "7.5" : "";
+			checkbox.classList.remove("semiChecked");
+		}
+		
+		// Register handler for checkbox changed
+		checkbox.addEventListener("onchange", function(event) {
+			checkboxClickHandler(event.target);
+		});
+		
+		// Register hanlder for checkbox container (parent) clicked
+		//  This makes it easier to select checkboxes, as you can click
+		//  the surrounding area or date label to toggle the checkbox
+		checkbox.parentNode.addEventListener("click", function(event) {
+			if (event.target == checkbox) return; // Check the user missed the checkbox
+			
+			// Check that select mode is enabled
+			if (checkbox.style.display !== "none") {
+				checkbox.checked = !checkbox.checked; // Change checked state
+				checkboxClickHandler(checkbox); // Fire handler
+			}
+		});
+		
 		return checkbox;
 	});
 	
@@ -321,5 +342,5 @@ chrome.storage.sync.get({
 		});
 	}
 	
-	console.log("Loading finished");
+	console.log("DTX Polyfiller loaded!");
 });

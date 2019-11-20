@@ -21,6 +21,11 @@
 	margin: 0 5px;
 }
 
+/* Block text/element selection inside calender view (e.g. date labels) */
+#calDates_tabCalendar > tbody > tr > td > * {
+	user-select: none;
+}
+
 
 /* Weekend stylings for checkboxes */
 input[type=checkbox].weekend {
