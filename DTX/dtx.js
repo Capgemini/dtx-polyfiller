@@ -54,26 +54,21 @@ function loadSelectMode(defaultMode) {
 		input.insertAdjacentElement('afterend', checkbox);
 		
 		// Handler for when checkbox is changed
-		function checkboxClickHandler(checkbox) {
+		function checkboxChangedHandler(checkbox) {
 			input.value = checkbox.checked ? "7.5" : "";
+			console.log(checkbox.classList);
 			checkbox.classList.remove("semiChecked");
 		}
 		
-		// Register handler for checkbox changed
-		checkbox.addEventListener("onchange", function(event) {
-			checkboxClickHandler(event.target);
-		});
-		
-		// Register hanlder for checkbox container (parent) clicked
+		// Register click hanlder for checkbox container (parent & children)
 		//  This makes it easier to select checkboxes, as you can click
 		//  the surrounding area or date label to toggle the checkbox
 		checkbox.parentNode.addEventListener("click", function(event) {
-			if (event.target == checkbox) return; // Check the user missed the checkbox
 			
 			// Check that select mode is enabled
 			if (checkbox.style.display !== "none") {
-				checkbox.checked = !checkbox.checked; // Change checked state
-				checkboxClickHandler(checkbox); // Fire handler
+				if (event.target !== checkbox) checkbox.checked = !checkbox.checked; // Change checked state (if user didn't click checkbox)
+				checkboxChangedHandler(checkbox); // Fire handler
 			}
 		});
 		
