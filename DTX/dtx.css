@@ -17,6 +17,15 @@
 #jsddm_summary li ul li, #jsddm_item li ul li { padding: none !important; }
 
 
+.autoFillButton {
+	margin: 0 5px;
+}
+
+
+/* Weekend stylings for checkboxes */
+input[type=checkbox].weekend {
+	filter: brightness(0.85);
+}
 
 /* Custom class for my bank holiday'd fields */
 input[type=text].bankHolidayDay::placeholder, input[type=checkbox].bankHolidayDay:after {
@@ -72,7 +81,7 @@ input[type=checkbox].semiChecked:after {
 
 
 
-#toggleModeContainer {
+#customButtonsContainer {
 	height: 100%;
 	
 	font-weight: bold;
@@ -84,7 +93,7 @@ input[type=checkbox].semiChecked:after {
 	align-items: center;
 	justify-content: center;
 }
-#toggleModeContainer input {
+#customButtonsContainer input {
 	width: 20px;
 	height: 20px;
 }

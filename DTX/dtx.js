@@ -41,7 +41,8 @@ function loadSelectMode(defaultMode) {
 		
 		// Darken weekend checkboxes
 		if (input.style["background-color"] === "rgb(225, 225, 225)") {
-			checkbox.style.filter = "brightness(0.85)";
+			input.classList.add("weekend");
+			checkbox.classList.add("weekend");
 		}
 		
 		// Highlight bank holiday checkboxes
@@ -61,7 +62,6 @@ function loadSelectMode(defaultMode) {
 	
 	// Add toggle button button to menubar
 	let selectModeCheckboxName = "toggleMode";
-	let buttonRow = document.querySelector("#SubMenuUC1_SubMenu_div1 > table > tbody > tr");
 	
 	let selectModeCheckbox = document.createElement("input");
     selectModeCheckbox.type = "checkbox";
@@ -100,12 +100,9 @@ function loadSelectMode(defaultMode) {
     selectModeLabel.htmlFor = selectModeCheckboxName; /* Link clicks to checkbox element */
     selectModeLabel.innerText = "Select mode";
 	
-	let container = document.createElement("div");
-	container.id = "toggleModeContainer";
-	container.appendChild(selectModeCheckbox);
-	container.appendChild(selectModeLabel);
-	
-	buttonRow.appendChild(container);
+	let customButtonsContainer = document.getElementById("customButtonsContainer");	
+	customButtonsContainer.appendChild(selectModeCheckbox);
+	customButtonsContainer.appendChild(selectModeLabel);
 }
 
 
@@ -222,6 +219,67 @@ function autoLogin(employeeNumber) {
 }
 
 
+// Injects a button into calender views to quick-select multiple days
+const fillModes = Object.freeze({"businessdays":0, "all":1, "none":2});
+function injectAutoFillButton() {
+	
+	// Create fill button
+	let autoFillButton = document.createElement("button");
+	autoFillButton.innerText = "Auto-fill";
+	autoFillButton.classList.add("autoFillButton");
+	
+	let fillModeIndex = 0;
+	autoFillButton.addEventListener('click', (event) => {
+		event.preventDefault();
+
+		let inputs = [...document.querySelectorAll("#calDates_tabCalendar > tbody input")];
+		
+		let weekDayIndex = 0;
+		inputs.forEach(function(input) {
+			let inputIsWeekend = input.classList.contains("weekend");
+			let inputIsBankHoliday = input.classList.contains("bankHolidayDay");
+			
+			let shouldSelect = true;
+			let fillMode = Object.values(fillModes)[fillModeIndex];
+			
+			switch(fillMode) {
+				case fillModes.all:
+					break;
+				case fillModes.businessdays:
+					shouldSelect = !inputIsBankHoliday && !inputIsWeekend;
+					break;
+				default:
+					shouldSelect = false;
+			}
+			
+			// Auto-complete inputs
+			if (input.type == "checkbox") {
+				input.checked = shouldSelect;
+			} else {
+				input.value = shouldSelect ? "7.5" : "";
+			}
+		});
+		
+		// Change to next fill mode for next click
+		fillModeIndex++;
+		if (fillModeIndex > Object.keys(fillModes).length - 1) fillModeIndex = 0;
+	});
+	
+	// Add autofill button to menubar
+	let customButtonsContainer = document.getElementById("customButtonsContainer");	
+	customButtonsContainer.appendChild(autoFillButton);
+}
+
+// Adds container to hold custom buttons in menubar for calender pages
+// e.g. Select mode, auto fill etc
+function injectCustomButtonsContainer() {
+	let buttonRow = document.querySelector("#SubMenuUC1_SubMenu_div1 > table > tbody > tr");
+	let customButtonsContainer = document.createElement("div");
+	customButtonsContainer.id = "customButtonsContainer";
+	buttonRow.appendChild(customButtonsContainer);
+}
+
+
 chrome.storage.sync.get({
 	shortcutKeys: true,
 	selectMode: true,
@@ -241,6 +299,8 @@ chrome.storage.sync.get({
 
 	// Check calender is on page before injecting calender features
 	if (!!document.getElementById("calDates_tabCalendar")) {
+		injectCustomButtonsContainer();
+		injectAutoFillButton();
 		
 		// Inject bank holiday features
 		fetchBankHolidaysJSON(function(holidaysJSON) {
