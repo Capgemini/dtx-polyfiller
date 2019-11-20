@@ -149,6 +149,7 @@ function injectShortcutKeys() {
 function isBankHoliday(selectedDate, holidaysJSON) {
     for (let i = 0; i < holidaysJSON.length; i++) {
         let dateObj = new Date(holidaysJSON[i].date);
+		dateObj.setHours(0); // Eliminate British Summer Time
 
         // Compare milliseconds since the Unix Epoch (JS safe way to compare dates)
         if (dateObj.getTime() == selectedDate.getTime()) {
@@ -167,7 +168,7 @@ function forEachBankHolidayCell(myBankHolidays, callback) {
     try {
         let selectedDateObj = document.getElementById("drpIncurredPeriod") || document.getElementById("drpPeriods");
         let selectedDateText = selectedDateObj.options[selectedDateObj.selectedIndex].text;
-        let selectedDate = new Date(selectedDateText);
+        let selectedDate = new Date(Date.parse(selectedDateText));
 
         for (let intCnt = 1; intCnt < 32; intCnt++) {
             let obj = document.getElementById(strCalendarDayPrefix + intCnt.toString());
@@ -313,7 +314,7 @@ chrome.storage.sync.get({
 				console.warn("ERROR:\n" + e.message);
 				return;
 			}
-
+			
 			if (items.showBankHolidays) handleShowBankHolidays(myBankHolidays);
 			
 			loadSelectMode(items.selectMode); // Inject checkbox mode
