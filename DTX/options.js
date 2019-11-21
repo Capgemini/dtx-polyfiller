@@ -13,10 +13,16 @@ function fetchBankHolidaysJSON(callback) {
 function save_options() {
 	var shortcutKeys = document.getElementById('shortcutKeys').checked;
 	var selectMode = document.getElementById('selectMode').checked;
+	
 	var showBankHolidays = document.getElementById('showBankHolidays').checked;
 	var holidayRegion = document.getElementById('holidayRegion').value;
+	
 	var autoLogin = document.getElementById('autoLogin').checked;
 	var employeeNumber = document.getElementById('employeeNumber').value;
+	
+	var autoFillFields = document.getElementById('autoFillFields').value;
+	var autoFillTaskNumber = document.getElementById('autoFillTaskNumber').value;
+	var autoFillProjectCode = document.getElementById('autoFillProjectCode').value;
 	
 	chrome.storage.sync.set({
 		shortcutKeys: shortcutKeys,
@@ -25,6 +31,9 @@ function save_options() {
 		holidayRegion: holidayRegion,
 		autoLogin: autoLogin,
 		employeeNumber: employeeNumber,
+		autoFillFields: autoFillFields,
+		autoFillTaskNumber: autoFillTaskNumber,
+		autoFillProjectCode: autoFillProjectCode,
 	}, function() {
 		// Update status to let user know options were saved.
 		var status = document.getElementById('status');
@@ -43,6 +52,10 @@ function toggleBankHolidayContainer(shouldShow) {
 function toggleAutoLoginContainer(shouldShow) {
 	document.getElementById('autoLoginSettingsContainer').style.display = shouldShow ? "block" : "none";
 }
+// Toggles visibility of auto fill fields sub-settings
+function toggleAutoFillFieldsContainer(shouldShow) {
+	document.getElementById('autoFillFieldsSettingsContainer').style.display = shouldShow ? "block" : "none";
+}
 
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
@@ -54,6 +67,9 @@ function restore_options() {
 		holidayRegion: 'england-and-wales',
 		autoLogin: false,
 		employeeNumber: "",
+		autoFillFields: true,
+		autoFillTaskNumber: "1",
+		autoFillProjectCode: "",
 	}, function(items) {
 		document.getElementById('shortcutKeys').checked = items.shortcutKeys;
 		document.getElementById('selectMode').checked = items.selectMode;
@@ -65,6 +81,11 @@ function restore_options() {
 		document.getElementById('autoLogin').checked = items.autoLogin;
 		document.getElementById('employeeNumber').value = items.employeeNumber;
 		toggleAutoLoginContainer(items.autoLogin);
+		
+		document.getElementById('autoFillFields').checked = items.autoFillFields;
+		document.getElementById('autoFillTaskNumber').value = items.autoFillTaskNumber;
+		document.getElementById('autoFillProjectCode').value = items.autoFillProjectCode;
+		toggleAutoFillFieldsContainer(items.autoFillFields);
 	});
 }
 
@@ -99,4 +120,7 @@ document.getElementById("showBankHolidays").addEventListener("change", function(
 });
 document.getElementById("autoLogin").addEventListener("change", function(event) {
 	toggleAutoLoginContainer(event.target.checked);
+});
+document.getElementById("autoFillFields").addEventListener("change", function(event) {
+	toggleAutoFillFieldsContainer(event.target.checked);
 });

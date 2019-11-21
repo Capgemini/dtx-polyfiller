@@ -286,10 +286,36 @@ function injectAutoFillButton() {
 	customButtonsContainer.appendChild(autoFillButton);
 }
 
+
+// Attempts to fill tasknumber with user's default if nothing is entered yet
+function autoFillTaskNumber(taskNumber) {
+	let taskInput = document.getElementById("txtTaskNumber");
+	if (taskInput !== undefined && taskInput.value == "") taskInput.value = taskNumber;
+}
+// Attempts to fill project code with user's default if nothing is entered yet
+function autoFillProjectCode(projectCode) {
+	let projectInput = document.getElementById("drpProjectCode_input");
+	if (projectInput !== undefined && projectInput.value == "") projectInput.value = projectCode;
+}
+
+
 // Adds container to hold custom buttons in menubar for calender pages
 // e.g. Select mode, auto fill etc
 function injectCustomButtonsContainer() {
+	// Get menu bar
 	let buttonRow = document.querySelector("#SubMenuUC1_SubMenu_div1 > table > tbody > tr");
+	
+	// Add separator
+	let separatorImg = document.createElement("img");
+	separatorImg.src = "./images/separator.gif";
+	separatorImg.border = "0";
+	let separatorCell = document.createElement("td");
+	separatorCell.valign = "middle";
+	separatorCell.align = "center";
+	separatorCell.appendChild(separatorImg);
+	buttonRow.appendChild(separatorCell);
+	
+	// Add custom section
 	let customButtonsContainer = document.createElement("div");
 	customButtonsContainer.id = "customButtonsContainer";
 	buttonRow.appendChild(customButtonsContainer);
@@ -329,6 +355,9 @@ chrome.storage.sync.get({
 	holidayRegion: 'england-and-wales',
 	autoLogin: false,
 	employeeNumber: "",
+	autoFillFields: true,
+	autoFillTaskNumber: "1",
+	autoFillProjectCode: "",
 }, function(items) {
 
     if (items.autoLogin) autoLogin(items.employeeNumber); // Run auto-login
@@ -344,6 +373,11 @@ chrome.storage.sync.get({
 	if (!!document.getElementById("calDates_tabCalendar")) {
 		injectCustomButtonsContainer();
 		injectAutoFillButton();
+		
+		if (items.autoFillFields) {
+			autoFillTaskNumber(items.autoFillTaskNumber);
+			autoFillProjectCode(items.autoFillProjectCode);
+		}
 		
 		// Inject bank holiday features
 		fetchBankHolidaysJSON(function(holidaysJSON) {
