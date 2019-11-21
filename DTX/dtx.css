@@ -16,6 +16,23 @@
 #jsddm_summary li ul li a, #jsddm_item li ul li a { font-size: 11px !important; }
 #jsddm_summary li ul li, #jsddm_item li ul li { padding: none !important; }
 
+/* Fix page being too big creating vertical scrollbar */
+#frmItem, #form1 { margin-block-end: unset; }
+
+/* Fix menubar button hover backgrounds being too short */
+a.actionIcon {
+	min-height: 100%;
+    display: block;
+}
+
+/* Replace horrid comic sans and red-on-blue font */
+span.dtxTitle {
+	font-family: "Trebuchet MS", serif !important;
+	color: #000 !important;
+}
+
+
+
 
 /* Custom menu bar buttons */
 #ukTimeButton {
@@ -90,7 +107,7 @@ input[type=checkbox].semiChecked:after {
 }
 
 
-
+/* Stylings for my custom menubar additions */
 #customButtonsContainer {
 	height: 100%;
 	
