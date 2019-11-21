@@ -31,6 +31,7 @@
     "default_popup": "options.html"
   },
   "web_accessible_resources": [
-    "submit-claims/submit-claims-overrides.js"
+    "submit-claims/submit-claims-overrides.js",
+	"images/*"
   ]
 }

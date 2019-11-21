@@ -17,7 +17,12 @@
 #jsddm_summary li ul li, #jsddm_item li ul li { padding: none !important; }
 
 
-.autoFillButton {
+/* Custom menu bar buttons */
+#ukTimeButton {
+	padding-top: 5px;
+	transform: scale(0.8);
+}
+#autoFillButton {
 	margin: 0 5px;
 }
 
