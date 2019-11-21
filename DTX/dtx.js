@@ -56,7 +56,6 @@ function loadSelectMode(defaultMode) {
 		// Handler for when checkbox is changed
 		function checkboxChangedHandler(checkbox) {
 			input.value = checkbox.checked ? "7.5" : "";
-			console.log(checkbox.classList);
 			checkbox.classList.remove("semiChecked");
 		}
 		
