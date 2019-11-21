@@ -16,8 +16,11 @@
 #jsddm_summary li ul li a, #jsddm_item li ul li a { font-size: 11px !important; }
 #jsddm_summary li ul li, #jsddm_item li ul li { padding: none !important; }
 
-/* Fix page being too big creating vertical scrollbar */
-#frmItem, #form1 { margin-block-end: unset; }
+/* Fix page being too big creating vertical scrollbar
+	Note: Form often has different IDs across different pages but is always
+	body's first child
+*/
+body > form { margin-block-end: unset; }
 
 /* Fix menubar button hover backgrounds being too short */
 a.actionIcon {
@@ -31,7 +34,11 @@ span.dtxTitle {
 	color: #000 !important;
 }
 
-
+/* Fix logo stretch and give padding */
+#ImgCGLogo {
+	height: 30px;
+    padding: 5px;
+}
 
 
 /* Custom menu bar buttons */
